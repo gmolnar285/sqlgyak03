@@ -1,17 +1,21 @@
-/*1.  */
+--feladat1
 
 SELECT *,
        -- új oszlop
-       IIF(MONTH(METTOL) IN (6, 7, 8), 'Igen', 'Nem') AS 'Nyári-e'
+       IIF(MONTH(METTOL) >= 6 AND MONTH(METTOL) <= 8, 'IGen', 'Nem') AS 'Nyári-e'
 FROM foglalas
-WHERE UGYFEL_FK = 'laszlo2' AND GYERMEK_SZAM = 0
+WHERE ugyfel_fk = 'laszlo2' AND gyermek_szam = 0
 
---2
+--- feladat2
+
 SELECT szh.TIPUS, 
        YEAR(f.METTOL) AS 'Év', 
        MONTH(f.METTOL) AS 'Hónap', 
+       --
        COUNT(*)
 FROM Foglalas f JOIN Szoba sz ON f.SZOBA_FK = sz.SZOBA_ID 
                 JOIN Szallashely szh ON sz.SZALLAS_FK = szh.SZALLAS_ID
 WHERE DATEDIFF(day, f.METTOL, f.MEDDIG) >=5 
 GROUP BY szh.TIPUS, YEAR(f.METTOL), MONTH(f.METTOL)
+
+---feladat3
